@@ -1,0 +1,280 @@
+:root {
+    --logo-height: 8%;
+    --controls-width: 15%;
+
+    --margin: 15px;
+    --gutter: 8px;
+
+    --border-radius-s: 10px;
+
+    --internal-padding-m: 15px;
+
+    --gray-1: #1a1a1a;
+    --gray-2: #424242;
+    --gray-3: #5a5a5a;
+    --gray-4: #8f8f8f;
+
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin: var(--margin);
+    font-family: "DM Sans", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    text-align: left;
+}
+
+body {
+    background-color: var(--gray-1);
+    color: #fff;
+    height: 100%;
+    width: 100%;
+
+}
+
+canvas {
+    margin: 0;
+    padding: 0;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+hr {
+    transform: translateX(calc(-1 * var(--internal-padding-m)));
+    margin: 10px calc(0 - var(--internal-padding-m));
+    padding: 0;
+    border: 0.5px solid var(--gray-3);
+    width: calc(100% + 2 * var(--internal-padding-m));
+}   
+
+br {
+    margin: var(--gutter);
+    padding: 0;
+}
+
+
+#logo_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100% - 2*var(--margin));
+    height: var(--logo-height); 
+    z-index: 1000;
+    padding: 0;
+}
+
+#logo_container img {
+    margin: 0;
+    padding: 0;
+    height: 40%;
+    object-fit: contain;
+}
+
+#controls {
+    position: fixed;
+    top: calc(var(--logo-height) + var(--gutter));
+    left: 0;
+    width: var(--controls-width);
+    height: calc(100% - var(--logo-height) - var(--gutter) - 2*var(--margin)); 
+    background-color: #25252500;
+    border-radius: var(--border-radius-s);
+} 
+
+#controls h2 {
+    text-align: left;
+    margin: 0;
+    margin-bottom: -5px;
+    padding: 0;
+}
+
+.controls_section {
+    display: block;
+    background-color: var(--gray-2);
+    border-radius: var(--border-radius-s);
+    padding: var(--internal-padding-m);
+    margin: 0;
+    overflow: hidden;
+}
+
+.controls_section *  {
+    display: block;
+    margin:  10px 0;
+    padding: 0;
+}
+
+.controls_section div {
+    margin: 0;
+    padding: 0px 0;
+}
+
+.controls_section hr {
+    margin: 20px 0;
+    padding: 0;
+}
+
+.btn {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: var(--border-radius-s);
+    border: 0.5px solid var(--gray-3);
+    background-color: var(--gray-2);
+    color: #fff;
+    transition: background-color 0.1s ease;
+}
+
+.btn:hover {
+    background-color: var(--gray-3);
+}
+
+.start_img_btn_container input {
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+
+.start_img_btn_container label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    background-color: var(--gray-3);
+    border-radius: var(--border-radius-s);
+    object-fit: cover;
+    transition: background-color 0.3s ease;
+}
+
+.start_img_btn_container label:hover {
+    background-color: var(--gray-4);
+}
+
+.input_image_bin_btn {
+    position: relative;
+    top: 0;
+    right: 0;
+    font-size: 30%;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    border: none;
+    border-radius: var(--border-radius-s);
+}
+
+#color_swatch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px;
+}
+
+#color_swatch button {
+    padding: 0;
+    margin: 0;
+    margin-right: 5px;
+    width: calc(100% / 7 - 5px);
+    aspect-ratio: 1/1;
+    height: auto;
+    border: none;
+    border-radius: 50%;
+    display: float;
+    cursor: pointer;
+    transition: outline 0.2s ease;
+}
+
+#color_swatch button:hover {
+    outline: 2px solid var(--gray-4);
+}
+
+#color_swatch button.color_btn_active {
+    outline: 2px solid var(--gray-4);
+}
+
+input[type="range"] {
+    display: flex;
+    width: 100%;
+}
+
+#scale_slider::-webkit-slider-thumb {
+    background-color: var(--gray-4);
+    border-radius: 50%;
+    width: 20px;
+    height: 10px;
+}
+
+#output_section {
+    margin-top: var(--gutter);
+}
+
+#canvas_container {
+    position: fixed;
+    top: calc(var(--logo-height) + var(--gutter));
+    left: calc(var(--controls-width) + var(--gutter));
+    width: calc(100% - var(--controls-width) - var(--gutter) - 2*var(--margin));
+    height: calc(100% - var(--logo-height) - var(--gutter) - 2*var(--margin)); 
+    background-color: var(--gray-2);
+    border-radius: var(--border-radius-s);
+    overflow: hidden;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+
+
+@media only screen and (min-width: 1080px) and (max-width: 1280px) {
+    :root {
+        --controls-width: 25%;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1079px) {
+    :root {
+        --controls-width: 28%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    * {
+        margin: 0;
+        padding: 10px;
+        display: none;
+    }
+
+    :root {
+        --canvas-height: 55%;
+    }   
+
+    #logo-container {
+        width: 100%;
+    }
+
+    #logo-container img {
+        margin: 10px;
+        padding: 0;
+    
+        height: 40%;
+        object-fit: contain;
+        text-align: center;
+    }
+
+    #canvas {
+        position:fixed;
+        width: 100%;
+        height: var(--canvas-height);
+        left: 0;
+        top: var(--logo-height);
+        border-radius: 0;
+    }
+
+    #controls {
+        position:fixed;
+        width: 100%;
+        height:calc(100% - var(--logo-height) - var(--canvas-height));
+        top: calc(var(--logo-height) + var(--canvas-height));
+        left: 0;
+        border-radius: 0;
+
+        padding:15px;
+    }
+}

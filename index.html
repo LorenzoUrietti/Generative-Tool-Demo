@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+    <script src="src/CCapture.all.min.js"></script>
+
+    <title>Edvance V5</title>
+    <link rel="icon" type="image/x-icon" href="Asset/Asset 4.png">
+</head>
+
+<body>
+    <div id="logo_container">
+        <img src="Asset/Asset 1.png" alt="logo">
+    </div>
+    <div id="controls">
+        <div id="input_section" class="controls_section">
+            <h2>Input</h2>
+            <hr>
+            <div class="start_img_btn_container">
+                <h5>Carica un'immagine</h5>
+                <label for="input_image">
+                    +
+                </label> 
+                <input type="file" id="input_image" class='btn' accept="image/png, image/jpeg, image/jpg, image/gif"> <!-- TODO: style like this https://onestepcode.com/style-html-img-file-input/ -->
+            </div>
+            <hr>
+            <h5>Sfondo</h5>
+            <div id="color_swatch">
+                <button class="color_btn" data-color="#7265f7" style="background-color: #7265f7;"></button>
+                <button class="color_btn" data-color="#7fa1f0" style="background-color: #7fa1f0;"></button>
+                <button class="color_btn color_btn_active" data-color="#d5e2f0" style="background-color: #d5e2f0;"></button>
+                <button class="color_btn" data-color="#c1abd6" style="background-color: #c1abd6;"></button>
+                <button class="color_btn" data-color="#edcace" style="background-color: #edcace;"></button>
+                <button class="color_btn" data-color="#f29999" style="background-color: #f29999;"></button>
+                <button class="color_btn" data-color="#bb7537" style="background-color: #bb7537;"></button>
+            </div>
+            <hr>
+            <div class="scale_slider">
+                <label for="scale_slider" class="c"><h5>Scala</h5></label>
+                <input type="range" min="5" max="15" value="10" id="scale_slider">
+            </div>
+
+            <hr>
+            <button class='btn minor_btn' id="reset_btn">Reset</button>
+        </div>
+        
+        <div id="output_section" class="controls_section">
+            <h2>Output</h2>
+            <hr>
+            <button class='btn export_btn' id="export_jpg_btn">Esporta jpg</button>
+            <button class='btn export_btn' id="export_gif_btn">Esporta gif</button>
+        </div>
+    </div>
+    <div id="canvas_container">
+    </div>
+    <script src="record.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
