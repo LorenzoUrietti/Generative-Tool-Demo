@@ -1,6 +1,7 @@
 :root {
     --logo-height: 8%;
     --controls-width: 15%;
+    --canvas-height:calc(100% - var(--logo-height) - var(--gutter) - 2*var(--margin));
 
     --margin: 15px;
     --gutter: 8px;
@@ -32,7 +33,6 @@ body {
     color: #fff;
     height: 100%;
     width: 100%;
-
 }
 
 canvas {
@@ -53,6 +53,8 @@ br {
     margin: var(--gutter);
     padding: 0;
 }
+
+
 
 
 #logo_container {
@@ -126,6 +128,7 @@ br {
 
 .btn:hover {
     background-color: var(--gray-3);
+    cursor: pointer;
 }
 
 .start_img_btn_container input {
@@ -213,14 +216,20 @@ input[type="range"] {
     top: calc(var(--logo-height) + var(--gutter));
     left: calc(var(--controls-width) + var(--gutter));
     width: calc(100% - var(--controls-width) - var(--gutter) - 2*var(--margin));
-    height: calc(100% - var(--logo-height) - var(--gutter) - 2*var(--margin)); 
+    height: var(--canvas-height); 
     background-color: var(--gray-2);
     border-radius: var(--border-radius-s);
     overflow: hidden;
     transition: width 0.3s ease, height 0.3s ease;
 }
 
+.placeholder_mobile {
+    display: none;
+}
 
+.desktop_hide {
+    display: none;
+}
 
 @media only screen and (min-width: 1080px) and (max-width: 1280px) {
     :root {
@@ -235,15 +244,18 @@ input[type="range"] {
 }
 
 @media only screen and (max-width: 768px) {
-    * {
-        margin: 0;
-        padding: 10px;
-        display: none;
-    }
-
     :root {
         --canvas-height: 55%;
     }   
+
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .desktop_hide {
+        display: block;
+    }
 
     #logo-container {
         width: 100%;
@@ -252,29 +264,47 @@ input[type="range"] {
     #logo-container img {
         margin: 10px;
         padding: 0;
-    
         height: 40%;
         object-fit: contain;
         text-align: center;
     }
 
-    #canvas {
+    #canvas_container {
+        display: none;
         position:fixed;
         width: 100%;
         height: var(--canvas-height);
-        left: 0;
+        left: -20px;
         top: var(--logo-height);
         border-radius: 0;
     }
 
     #controls {
+        display: none;
         position:fixed;
         width: 100%;
         height:calc(100% - var(--logo-height) - var(--canvas-height));
         top: calc(var(--logo-height) + var(--canvas-height));
         left: 0;
         border-radius: 0;
-
-        padding:15px;
+        margin: 0;
+        padding: 0;
     }
+
+    .placeholder_mobile {
+        display: flex;  /* Changed from block to flex */
+        height: 100vh;
+        width: 100vw;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .placeholder_mobile h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 200%;
+        text-align: center;  /* Added to ensure text is centered within the h1 */
+    }
+
 }
