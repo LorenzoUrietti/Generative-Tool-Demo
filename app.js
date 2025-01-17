@@ -23,7 +23,7 @@ const export_gif_btn = document.getElementById('export_gif_btn');
 
 //gif recording variables
 let fps = 24;
-let rec_duration_seconds = 2;
+let rec_duration_seconds = 3;
 let duration = rec_duration_seconds*fps;
 
 let gif_recorder;
@@ -181,7 +181,7 @@ function dither() {
   push();
   
   translate(width/2, height/2);
-  let wave = sin(radians(current_frame));
+  let wave = radians(current_frame*current_frame/100);
   rotateX(wave);
 
   // Reduce resolution for better performance
@@ -195,14 +195,13 @@ function dither() {
       
       if (scalar > 0.1) { // Only draw if brightness is significant
         push();
+        fill(0);
         translate(
           (x - uploaded_image.width/2) * tileW, 
           (y - uploaded_image.height/2) * tileH, 
-          map(b, 0, 230, current_frame*current_frame*2, 0)
+          map(b, 0, 230, current_frame*current_frame/2, -current_frame*current_frame/2)
         );
-        fill(0);
         box(tileW * scalar * skipFactor, tileH * scalar * skipFactor, tileW * skipFactor * scalar);
-        //sphere(tileW * scalar * skipFactor);
         pop();
       }
     }
@@ -212,20 +211,7 @@ function dither() {
 }
 
 function keyPressed() {
-  if(key == 'd') {
-    console.log('downscaling');
-    let new_width = 500;
-    let new_height = 500;
-    resizeCanvas(new_width, new_height);
-    canvas_container.style.width = new_width + 'px';
-    canvas_container.style.height = new_height + 'px';
-  } else if(key == 'r') {
-    let new_height = canvas_original_height;
-    let new_width = canvas_original_width;
-    resizeCanvas(new_width, new_height);
-    canvas_container.style.width = new_width + 'px';
-    canvas_container.style.height = new_height + 'px';
-  } else if(key == ' ') {
+if(key == ' ') {
     if(is_recording) {
       is_recording = false;
       current_frame = 0;
