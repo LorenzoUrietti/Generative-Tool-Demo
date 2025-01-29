@@ -1,3 +1,5 @@
+console.log('alternate')
+
 let uploaded_image;
 let is_loading = false;
 
