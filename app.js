@@ -1,5 +1,3 @@
-console.log('alternate')
-
 let uploaded_image;
 let is_loading = false;
 
@@ -213,20 +211,7 @@ function dither() {
 }
 
 function keyPressed() {
-  if(key == 'd') {
-    console.log('downscaling');
-    let new_width = 500;
-    let new_height = 500;
-    resizeCanvas(new_width, new_height);
-    canvas_container.style.width = new_width + 'px';
-    canvas_container.style.height = new_height + 'px';
-  } else if(key == 'r') {
-    let new_height = canvas_original_height;
-    let new_width = canvas_original_width;
-    resizeCanvas(new_width, new_height);
-    canvas_container.style.width = new_width + 'px';
-    canvas_container.style.height = new_height + 'px';
-  } else if(key == ' ') {
+if(key == ' ') {
     if(is_recording) {
       is_recording = false;
       current_frame = 0;
@@ -266,17 +251,43 @@ async function export_jpg() {
             }
         }
     } else {
-        //Temporarily removed File System Access API for p5.js incompatibility
+        // Fallback for browsers that don't support the File System Access API
         saveCanvas('output', 'jpg');
     }
 }
 
 async function export_gif() {
-
+  if ('showSaveFilePicker' in window) {
+      try {
+          const handle = await window.showSaveFilePicker({
+              suggestedName: 'rendered.gif',
+              types: [{
+                  description: 'GIF Image',
+                  accept: { 'image/gif': ['.gif'] },
+              }],
+          });
+          
+          // Use p5.js saveGif but handle the blob
+          is_recording = true;
+          console.log('is_recording: ', is_recording);
+          saveGif('output', duration, {units: 'frames'}, async (blob) => {
+              const writable = await handle.createWritable();
+              await writable.write(blob);
+              await writable.close();
+              is_recording = false;
+              current_frame = 0;
+          });
+      } catch (err) {
+          if (err.name !== 'AbortError') {
+              console.error('Failed to save the gif:', err);
+          } else {
+              console.log('Save operation was cancelled by the user');
+          }
+      }
+  } else {
       // Fallback for browsers that don't support the File System Access API
-      saveGif('output', duration, { units: 'frames' });
-      console.log('safety gif export');
+      saveGif('output', duration, {units: 'frames'});
       is_recording = false;
       current_frame = 0;
+  }
 }
-
