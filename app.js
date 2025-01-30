@@ -211,7 +211,20 @@ function dither() {
 }
 
 function keyPressed() {
-if(key == ' ') {
+  if(key == 'd') {
+    console.log('downscaling');
+    let new_width = 500;
+    let new_height = 500;
+    resizeCanvas(new_width, new_height);
+    canvas_container.style.width = new_width + 'px';
+    canvas_container.style.height = new_height + 'px';
+  } else if(key == 'r') {
+    let new_height = canvas_original_height;
+    let new_width = canvas_original_width;
+    resizeCanvas(new_width, new_height);
+    canvas_container.style.width = new_width + 'px';
+    canvas_container.style.height = new_height + 'px';
+  } else if(key == ' ') {
     if(is_recording) {
       is_recording = false;
       current_frame = 0;
@@ -266,17 +279,21 @@ async function export_gif() {
                   accept: { 'image/gif': ['.gif'] },
               }],
           });
-          
-          // Use p5.js saveGif but handle the blob
+
           is_recording = true;
           console.log('is_recording: ', is_recording);
-          saveGif('output', duration, {units: 'frames'}, async (blob) => {
-              const writable = await handle.createWritable();
-              await writable.write(blob);
-              await writable.close();
-              is_recording = false;
-              current_frame = 0;
+
+          // Convert saveGif callback to a promise
+          const blob = await new Promise((resolve, reject) => {
+              saveGif('output', duration, { units: 'frames' }, resolve);
           });
+
+          const writable = await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+
+          is_recording = false;
+          current_frame = 0;
       } catch (err) {
           if (err.name !== 'AbortError') {
               console.error('Failed to save the gif:', err);
@@ -286,8 +303,10 @@ async function export_gif() {
       }
   } else {
       // Fallback for browsers that don't support the File System Access API
-      saveGif('output', duration, {units: 'frames'});
+      saveGif('output', duration, { units: 'frames' });
+      console.log('safety gif export');
       is_recording = false;
       current_frame = 0;
   }
 }
+
